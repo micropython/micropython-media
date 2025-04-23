@@ -1,3 +1,13 @@
 #!/bin/bash
-rm */*.thumb.jpg
-for file in */*; do convert $file -thumbnail 300 ${file/.jpg/.thumb.jpg}; done
+
+function update_thumb {
+    ext=$1
+    rm */*.thumb.$ext
+    for file in */*.$ext; do
+        echo "Processing $file"
+        convert $file -thumbnail 300 ${file/.$ext/.thumb.$ext}
+    done
+}
+
+update_thumb jpg
+update_thumb png
